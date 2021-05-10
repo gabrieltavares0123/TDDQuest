@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="NumberInWordsTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2021-05-10T19:16:13" hostname="BSBGES4W8Q172" time="0.109">
+  <properties/>
+  <testcase name="should convert two digits arbitrary words to number()" classname="NumberInWordsTest" time="0.076"/>
+  <testcase name="3 - should be three()" classname="NumberInWordsTest" time="0.002"/>
+  <testcase name="should return 10 to 19 numbers in words()" classname="NumberInWordsTest" time="0.002"/>
+  <testcase name="should return 1 to 9 in words()" classname="NumberInWordsTest" time="0.002"/>
+  <testcase name="should convert hundreds words to number()" classname="NumberInWordsTest" time="0.005"/>
+  <testcase name="should return 10's multiples words in numbers()" classname="NumberInWordsTest" time="0.001"/>
+  <testcase name="should return 10 to 19 words in numbers()" classname="NumberInWordsTest" time="0.001"/>
+  <testcase name="should convert arbitrary 100's multiple words to numbers()" classname="NumberInWordsTest" time="0.003"/>
+  <testcase name="should convert arbitrary hundred numbers in words()" classname="NumberInWordsTest" time="0.002"/>
+  <testcase name="should return 1 to 9 single digits words in numbers()" classname="NumberInWordsTest" time="0.0"/>
+  <testcase name="0 - should be zero()" classname="NumberInWordsTest" time="0.001"/>
+  <testcase name="should return 10's multiples numbers in words()" classname="NumberInWordsTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
