@@ -1,10 +1,17 @@
 import kotlin.math.roundToInt
 
 class StringCalculator {
+    private val invalidSeparatorSequence = Regex("(.*,\\n.*)|(.*\\n,.*)")
+
     fun add(number: String): String {
-        return if (number.matches("(.*,\\n.*)|(.*\\n,.*)".toRegex())) {
+        return if (number.matches(invalidSeparatorSequence)) {
             "Number expected but '\\n' found at position 6"
-        } else number.split(",", "\n").map { it.toFloatHandlingEmpty() }.sum().toFloor()
+        } else {
+            number.split(",", "\n")
+                .map { it.toFloatHandlingEmpty() }
+                .sum()
+                .toFloor()
+        }
     }
 
     private fun String.toFloatHandlingEmpty(): Float =

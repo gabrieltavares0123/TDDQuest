@@ -1,20 +1,21 @@
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.TestInstance
 import kotlin.test.Test
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class StringCalculatorTest {
+
     lateinit var stringCalculator: StringCalculator
 
-    @BeforeEach
-    fun setUp() {
+    @BeforeAll
+    internal fun setUp() {
         stringCalculator = StringCalculator()
     }
 
     @Test
-    fun `should return 0 when the string to add is null`() {
-        var result = stringCalculator.add("")
-
-        assertEquals(result, "0")
+    fun `should return 0 when the string to add is empty`() {
+        assertEquals("0", stringCalculator.add(""))
     }
 
     @Test
@@ -33,7 +34,7 @@ class StringCalculatorTest {
     }
 
     @Test
-    fun `should sum arbitrary two numbers`() {
+    fun `should sum arbitrary two numbers integer or float`() {
         assertEquals("2", stringCalculator.add("1,1"))
         assertEquals("1", stringCalculator.add("1,0"))
         assertEquals("1", stringCalculator.add("0,1"))
@@ -44,7 +45,7 @@ class StringCalculatorTest {
     }
 
     @Test
-    fun `should sum numbers 1,2,3`(){
+    fun `should sum arbitrary three numbers integer or floating`(){
         assertEquals("6", stringCalculator.add("1,2,3"))
         assertEquals("12", stringCalculator.add("2,3,7"))
         assertEquals("8", stringCalculator.add("2,2,2,2"))
@@ -52,14 +53,14 @@ class StringCalculatorTest {
     }
 
     @Test
-    fun `should sum '1(new line)2,3' and return 6`() {
+    fun `should sum using (,) or (new line) as separator`() {
         assertEquals("6", stringCalculator.add("1\n2,3"))
         assertEquals("6", stringCalculator.add("1,2\n3"))
         assertEquals("10", stringCalculator.add("1,2,3\n4"))
     }
 
     @Test
-    fun `should return error when two string contains ,(new line))`() {
+    fun `should return error when string contains two separators in sequence)`() {
         assertEquals("Number expected but '\\n' found at position 6", stringCalculator.add("175.2,\n35") )
         assertEquals("Number expected but '\\n' found at position 6", stringCalculator.add("175.2\n,35") )
     }
