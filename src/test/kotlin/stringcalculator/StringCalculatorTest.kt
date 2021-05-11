@@ -3,7 +3,6 @@ package stringcalculator
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
-import stringcalculator.StringCalculator
 import kotlin.test.Test
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -63,9 +62,9 @@ class StringCalculatorTest {
     }
 
     @Test
-    fun `should return error when string contains two separators in sequence)`() {
+    fun `should return error when string contains two separators in sequence`() {
         assertEquals("Number expected but '\\n' found at position 6", stringCalculator.add("175.2,\n35") )
-        assertEquals("Number expected but '\\n' found at position 6", stringCalculator.add("175.2\n,35") )
+        assertEquals("Number expected but '\\n' found at position 5", stringCalculator.add("175.2\n,35") )
     }
 
     @Test

@@ -1,7 +1,5 @@
 package stringcalculator
 
-import kotlin.math.roundToInt
-
 class StringCalculator {
     private val invalidSeparatorSequence = Regex("(.*,\\n.*)|(.*\\n,.*)")
 
@@ -25,23 +23,9 @@ class StringCalculator {
 
     private fun startOrEndInvalid(numbers: String): Boolean {
         return when {
-            numbers.first() == ',' || numbers.first() == '\n' -> true
-            numbers.last() == ',' || numbers.last() == '\n' -> true
+                numbers.isNotEmpty() && (numbers.first() == ',' || numbers.first() == '\n')-> true
+                numbers.isNotEmpty() && (numbers.last() == ',' || numbers.last() == '\n') -> true
             else -> false
         }
     }
-
-    private fun String.toFloatHandlingEmpty(): Float =
-        if (isEmpty()) {
-            0F
-        } else {
-            toFloat()
-        }
-
-    private fun Float.toFloor(): String =
-        if (this % 1F != 0F) {
-            toString()
-        } else {
-            roundToInt().toString()
-        }
 }
