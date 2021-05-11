@@ -1,4 +1,6 @@
-
+package numberinwords
+import convertNumberToWords
+import convertWordToNumber
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
