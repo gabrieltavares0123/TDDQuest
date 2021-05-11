@@ -64,4 +64,28 @@ class StringCalculatorTest {
         assertEquals("Number expected but '\\n' found at position 6", stringCalculator.add("175.2,\n35") )
         assertEquals("Number expected but '\\n' found at position 6", stringCalculator.add("175.2\n,35") )
     }
+
+    @Test
+    fun `should return error with position`() {
+        assertEquals("Number expected but '\\n' found at position 6", stringCalculator.add("175.2,\n35") )
+        assertEquals("Number expected but '\\n' found at position 5", stringCalculator.add("175.2\n,35") )
+    }
+
+//    @Test
+//    fun `sss`() {
+//        assertEquals("Number expected but '\\n' found at position 5", stringCalculator.add("175.2,,35") )
+//    }
+
+    @Test
+    fun `should return error when string ends with (,)`() {
+        assertEquals("Number expected but EOF found", stringCalculator.add("1,2,"))
+        assertEquals("Number expected but EOF found", stringCalculator.add(",1,2"))
+        assertEquals("Number expected but EOF found", stringCalculator.add("1,2\n"))
+        assertEquals("Number expected but EOF found", stringCalculator.add("\n1,2"))
+    }
+
+    @Test
+    fun `should sum with the selected separator `() {
+        assertEquals("3", stringCalculator.add("//;\n1;2"))
+    }
 }
