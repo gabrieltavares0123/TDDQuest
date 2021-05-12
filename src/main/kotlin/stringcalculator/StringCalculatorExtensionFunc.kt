@@ -1,5 +1,6 @@
 package stringcalculator
 
+import java.util.regex.Pattern
 import kotlin.math.roundToInt
 
 fun String.toFloatHandlingEmpty(): Float =
@@ -15,3 +16,9 @@ fun Float.toFloor(): String =
     } else {
         roundToInt().toString()
     }
+
+fun String.extractDelimiter(delimiter: String): String {
+    val matcher = Pattern.compile(delimiter).matcher(this)
+    matcher.find()
+    return matcher.group(0)
+}

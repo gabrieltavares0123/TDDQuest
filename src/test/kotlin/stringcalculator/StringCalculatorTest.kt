@@ -2,6 +2,8 @@ package stringcalculator
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.TestInstance
 import kotlin.test.Test
 
@@ -86,8 +88,21 @@ class StringCalculatorTest {
         assertEquals("Number expected but EOF found", stringCalculator.add("\n1,2"))
     }
 
-    @Test
-    fun `should sum with the selected separator `() {
-        assertEquals("3", stringCalculator.add("//;\n1;2"))
+    @Nested
+    @DisplayName("Custom delimiter")
+    inner class CustomDelimiter {
+        @Test
+        fun `should sum with the selected separator`() {
+            assertEquals("3", stringCalculator.add("//;\n1;2"))
+            assertEquals("6", stringCalculator.add("//|\n1|2|3"))
+            assertEquals("5", stringCalculator.add("//sep\n2sep3"))
+        }
+
+        @Test
+        fun `should return error when using invalid delimiter`() {
+            assertEquals("'|' expected but ',' found at position 3.", stringCalculator.add("//|\n1|2,3"))
+            assertEquals("',' expected but '|' found at position 3.", stringCalculator.add("//,\n1|2,3"))
+            assertEquals("'#' expected but '|' found at position 3.", stringCalculator.add("//#\n1|2,3"))
+        }
     }
 }
