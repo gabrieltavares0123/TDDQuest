@@ -1,5 +1,7 @@
 package employeereport
 
+import SortedListAlphabeticallyAscendingMatcher
+import SortedListAlphabeticallyDescendingMatcher
 import io.mockk.every
 import io.mockk.mockk
 import org.hamcrest.MatcherAssert.assertThat
@@ -10,6 +12,7 @@ import org.junit.jupiter.api.*
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class EmployeeReportTest {
+
     private lateinit var report: EmployeeReport
     private var repository = mockk<EmployeeRepository>()
 
@@ -67,16 +70,16 @@ internal class EmployeeReportTest {
     }
 
     @Nested
-    @DisplayName("Employees ordered by name")
-    inner class EmployeesOrderedByName() {
+    @DisplayName("Employees sorted by name ascending")
+    inner class EmployeesSortedByNameAscending() {
         @Test
-        fun `should return all employees ordered by name`() {
+        fun `should return all employees sorted by name ascending`() {
             every { repository.getAllEmployees() } returns allEmployees
 
-            val expectedList = allEmployees.sortedBy { it.name }
-            val resultList = report.getAllEmployeesOrderedByName()
+            val comparator = compareBy<Employee> { it.name }
+            val resultList = report.getAllEmployeesSortedByNameAscending()
 
-            assertThat(resultList, `is`(expectedList))
+            assertThat(resultList, `is`(SortedListAlphabeticallyAscendingMatcher(comparator)))
         }
     }
 
@@ -91,6 +94,20 @@ internal class EmployeeReportTest {
 
             assertThat(resultList,
                 everyItem(hasProperty("name", matchesPattern("[A-Z]*"))))
+        }
+    }
+
+    @Nested
+    @DisplayName("Employees sorted by name descending")
+    inner class EmployeesSortedByNameDescending {
+        @Test
+        fun `should return all employees sorted by name descending`() {
+            every { repository.getAllEmployees() } returns allEmployees
+
+            val comparator = compareBy<Employee> { it.name }
+            val resultList = report.getAllEmployeesSortedByNameDescending()
+
+            assertThat(resultList, `is`(SortedListAlphabeticallyDescendingMatcher(comparator)))
         }
     }
 }
