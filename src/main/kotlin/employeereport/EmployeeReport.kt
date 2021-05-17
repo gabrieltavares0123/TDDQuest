@@ -11,4 +11,13 @@ internal class EmployeeReport (
         val allEmployees = repository.getAllEmployees()
         return allEmployees.filter { it.age >= 18 }
     }
+
+    fun getAllEmployeesOrderedByName(): List<Employee> {
+        return getAllEmployees().sortedBy { it.name }
+    }
+
+    fun getAllEmployeesCapitalized(): List<Employee> {
+        return repository.getAllEmployees()
+            .map { it.copy(name = it.name.toUpperCase()) }
+    }
 }

@@ -41,7 +41,7 @@ internal class EmployeeReportTest {
     }
 
     @Nested
-    @DisplayName("Older employees test")
+    @DisplayName("Older employees")
     inner class OlderEmployees {
         @Test
         fun `should return an empty list when there is no employee older than 18`() {
@@ -63,6 +63,34 @@ internal class EmployeeReportTest {
                 olderEmployees,
                 everyItem(hasProperty("age", greaterThanOrEqualTo(18)))
             )
+        }
+    }
+
+    @Nested
+    @DisplayName("Employees ordered by name")
+    inner class EmployeesOrderedByName() {
+        @Test
+        fun `should return all employees ordered by name`() {
+            every { repository.getAllEmployees() } returns allEmployees
+
+            val expectedList = allEmployees.sortedBy { it.name }
+            val resultList = report.getAllEmployeesOrderedByName()
+
+            assertThat(resultList, `is`(expectedList))
+        }
+    }
+
+    @Nested
+    @DisplayName("Employees capitalized")
+    inner class EmployeesCapitalized {
+        @Test
+        fun `should return all employees capitalized`() {
+            every { repository.getAllEmployees() } returns allEmployees
+
+            val resultList = report.getAllEmployeesCapitalized()
+
+            assertThat(resultList,
+                everyItem(hasProperty("name", matchesPattern("[A-Z]*"))))
         }
     }
 }
